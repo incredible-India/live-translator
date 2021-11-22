@@ -15,9 +15,10 @@ def readUserData():
 
     """this function will read the data provided by the user"""
     global path, userDataFromTextFile
-    while True:
-        with open(path,'r') as readInformation :
-            userDataFromTextFile = readInformation.read()
+
+    with open(path,'r') as readInformation :
+        userDataFromTextFile = readInformation.read()
+
 
 
 
@@ -27,36 +28,30 @@ def translateTheData():
 
     global  destUserDataAfterTranslation
     trans = Translator()
-    translated = trans.translate(text = f'{userDataFromTextFile}' ,src='en',dest="hi")
+    translated = trans.translate(text = f'{userDataFromTextFile}' ,src='en',dest="kn")
     destUserDataAfterTranslation = translated.text
     speakDataByUser(destUserDataAfterTranslation)
 
-
-
-
-
-
 def speakDataByUser(datas):
     mixer.init()
-    print(datas)
+    print(userDataFromTextFile,'\n',datas)
+
     speakLang = gTTS(text= f'{datas}',lang='hi',slow=True)
     speakLang.save('mylang.mp3')
     mixer.music.load('mylang.mp3')
     mixer.music.play()
     storeUserData()
-    while True:
-        x=input()
-        mixer.music.stop()
-        break
+    time.sleep(3)
+    mixer.music.stop()
+
 
 
 
 
 def storeUserData():
 
-    with open('history.txt','a') as dataStore:
-        dataStore.write(f'kaho')
-
+    with open('history.txt','a' ,encoding='utf-8') as dataStored:
+        dataStored.write(f'\n{userDataFromTextFile} >>  translated to >> \t {destUserDataAfterTranslation}')
 
 
 t1 = threading.Thread(target=readUserData,daemon=True)
