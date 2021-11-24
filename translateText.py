@@ -22,6 +22,7 @@ def readUserData():
 
 
 
+
     pass
 def translateTheData():
 
@@ -36,7 +37,7 @@ def speakDataByUser(datas):
     mixer.init()
     print(userDataFromTextFile,'\n',datas)
 
-    speakLang = gTTS(text= f'{datas}',lang='hi',slow=True)
+    speakLang = gTTS(text= f'{datas}',lang='kn',slow=True)
     speakLang.save('mylang.mp3')
     mixer.music.load('mylang.mp3')
     mixer.music.play()
@@ -51,7 +52,7 @@ def speakDataByUser(datas):
 def storeUserData():
 
     with open('history.txt','a' ,encoding='utf-8') as dataStored:
-        dataStored.write(f'\n{userDataFromTextFile} >>  translated to >> \t {destUserDataAfterTranslation}')
+        dataStored.write(f'\n{userDataFromTextFile} >>  translated to >> \t {destUserDataAfterTranslation}\n')
 
 
 t1 = threading.Thread(target=readUserData,daemon=True)
